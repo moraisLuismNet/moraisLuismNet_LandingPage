@@ -12,14 +12,7 @@
 </section>
 
 <script is:inline>
-  interface Project {
-    title: string;
-    description: string;
-    link: string;
-    image?: string;
-  }
-
-  const projects: Project[] = [
+  const projects = [
     {
       title: "AdministrationDB",
       description: "ASP.NET Core 8.0 web application for managing massage and Pilates client information. This integrated management system allows you to maintain complete client records, schedule and manage appointments and sessions, track health-related information (such as conditions and goals), send appointment notifications, and export data for analysis and reporting. The application also supports user authentication and authorization. It uses SQLite with Entity Framework Core, Razor Views with Bootstrap and iText7 for PDF export.",
@@ -242,12 +235,12 @@
   const projectsPerPage = 2;
   let currentPage = 1;
 
-  function displayProjects(page: number): void {
+  function displayProjects(page) {
     const startIndex = (page - 1) * projectsPerPage;
     const endIndex = startIndex + projectsPerPage;
     const projectsToShow = projects.slice(startIndex, endIndex);
 
-    const projectsGrid = document.getElementById('projects-grid') as HTMLElement;
+    const projectsGrid = document.getElementById('projects-grid');
     if (projectsGrid) {
       projectsGrid.innerHTML = projectsToShow.map(project => `
         <div class="project">
@@ -260,9 +253,9 @@
     }
   }
 
-  function displayPagination(): void {
+  function displayPagination() {
     const totalPages = Math.ceil(projects.length / projectsPerPage);
-    const pagination = document.getElementById('pagination') as HTMLElement;
+    const pagination = document.getElementById('pagination');
 
     if (pagination) {
       let paginationHTML = '<button id="prev-btn" disabled>Anterior</button>';
@@ -278,7 +271,7 @@
       // Add event listeners to pagination buttons
       document.querySelectorAll('.page-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const target = e.target as HTMLElement;
+          const target = e.target;
           if (target && target.dataset.page) {
             currentPage = parseInt(target.dataset.page);
             displayProjects(currentPage);
@@ -287,7 +280,7 @@
         });
       });
 
-      const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+      const prevBtn = document.getElementById('prev-btn');
       if (prevBtn) {
         prevBtn.addEventListener('click', () => {
           if (currentPage > 1) {
@@ -298,7 +291,7 @@
         });
       }
 
-      const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+      const nextBtn = document.getElementById('next-btn');
       if (nextBtn) {
         nextBtn.addEventListener('click', () => {
           if (currentPage < totalPages) {
@@ -313,8 +306,8 @@
     }
   }
 
-  function updatePaginationButtons(totalPages: number): void {
-    const pageBtns = document.querySelectorAll('.page-btn') as NodeListOf<HTMLButtonElement>;
+  function updatePaginationButtons(totalPages) {
+    const pageBtns = document.querySelectorAll('.page-btn');
     pageBtns.forEach(btn => {
       btn.classList.remove('active');
       if (btn.dataset.page && parseInt(btn.dataset.page) === currentPage) {
@@ -322,12 +315,12 @@
       }
     });
 
-    const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+    const prevBtn = document.getElementById('prev-btn');
     if (prevBtn) {
       prevBtn.disabled = currentPage === 1;
     }
 
-    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn');
     if (nextBtn) {
       nextBtn.disabled = currentPage === totalPages;
     }
