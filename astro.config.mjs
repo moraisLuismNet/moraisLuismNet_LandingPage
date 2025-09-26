@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://moraisluismnet.github.io',
-  base: '/',
+  base: '/moraisLuismNet_LandingPage',
   build: {
     format: 'directory'
   }
