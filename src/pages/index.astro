@@ -1,3 +1,8 @@
 ---
-return Astro.redirect('/cv');
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CV from '../components/CV.astro';
 ---
+
+<BaseLayout title="CV - Mi Landing Page">
+	<CV />
+</BaseLayout>
