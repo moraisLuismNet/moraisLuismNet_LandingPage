@@ -1,14 +1,7 @@
 <!DOCTYPE html><html lang="es" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="description" content="Landing page con CV y proyectos"><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' https://moraisluismnet.github.io; img-src 'self' data: https://moraisluismnet.github.io;"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.13.11"><title>Proyectos - Mi Landing Page</title><style>body{font-family:Arial,sans-serif;margin:0;padding:0;line-height:1.6}nav[data-astro-cid-37fxchfa]{background-color:#333;padding:1rem}nav[data-astro-cid-37fxchfa] ul[data-astro-cid-37fxchfa]{list-style:none;margin:0;padding:0;display:flex;justify-content:center}nav[data-astro-cid-37fxchfa] li[data-astro-cid-37fxchfa]{margin:0 1rem}nav[data-astro-cid-37fxchfa] a[data-astro-cid-37fxchfa]{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:4px;transition:background-color .3s}nav[data-astro-cid-37fxchfa] a[data-astro-cid-37fxchfa]:hover:not(.disabled){background-color:#555}nav[data-astro-cid-37fxchfa] a[data-astro-cid-37fxchfa].disabled{pointer-events:none;opacity:.5;cursor:default}main[data-astro-cid-37fxchfa]{padding:2rem;min-height:60vh}footer[data-astro-cid-37fxchfa]{background-color:#f4f4f4;text-align:center;padding:1rem}
 #projects{padding:2rem;max-width:1200px;margin:0 auto}.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}.project{border:1px solid #ddd;padding:1rem;border-radius:8px;font-size:.8rem}.project h3{margin-top:0;font-size:.8rem;word-wrap:break-word;overflow-wrap:break-word}.project img{width:100%;height:auto;margin:.5rem 0;border-radius:4px;transition:transform .3s ease;cursor:pointer}.project img:hover{transform:scale(1.25);z-index:10;position:relative}.project a{color:#007bff;text-decoration:none;display:inline-block;padding:.5rem 1rem;border:1px solid #007bff;border-radius:4px;margin-top:1rem;transition:all .3s ease}.project a:hover{background-color:#007bff;color:#fff}.pagination{display:flex;justify-content:center;align-items:center;margin-top:2rem;gap:.5rem}.pagination button{padding:.5rem 1rem;border:1px solid #007bff;background-color:#fff;color:#007bff;cursor:pointer;border-radius:4px;transition:all .3s ease}.pagination button:hover:not(:disabled){background-color:#007bff;color:#fff}.pagination button:disabled{opacity:.5;cursor:not-allowed}.pagination .page-btn.active{background-color:#007bff;color:#fff}
 </style></head> <body data-astro-cid-37fxchfa> <nav data-astro-cid-37fxchfa> <ul data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="/moraisLuismNet_LandingPage/" class data-astro-cid-37fxchfa>CV</a></li> <li data-astro-cid-37fxchfa><a href="/moraisLuismNet_LandingPage/proyectos" class="disabled" data-astro-cid-37fxchfa>Proyectos</a></li> <li data-astro-cid-37fxchfa><a href="/moraisLuismNet_LandingPage/contacto" class data-astro-cid-37fxchfa>Contacto</a></li> </ul> </nav> <main data-astro-cid-37fxchfa>  <section id="projects"> <div class="projects-grid" id="projects-grid"> <!-- Projects will be loaded dynamically --> </div> <div class="pagination" id="pagination"> <!-- Pagination controls will be loaded dynamically --> </div> </section> <script>
-  interface Project {
-    title: string;
-    description: string;
-    link: string;
-    image?: string;
-  }
-
-  const projects: Project[] = [
+  const projects = [
     {
       title: "AdministrationDB",
       description: "ASP.NET Core 8.0 web application for managing massage and Pilates client information. This integrated management system allows you to maintain complete client records, schedule and manage appointments and sessions, track health-related information (such as conditions and goals), send appointment notifications, and export data for analysis and reporting. The application also supports user authentication and authorization. It uses SQLite with Entity Framework Core, Razor Views with Bootstrap and iText7 for PDF export.",
@@ -231,12 +224,12 @@
   const projectsPerPage = 2;
   let currentPage = 1;
 
-  function displayProjects(page: number): void {
+  function displayProjects(page) {
     const startIndex = (page - 1) * projectsPerPage;
     const endIndex = startIndex + projectsPerPage;
     const projectsToShow = projects.slice(startIndex, endIndex);
 
-    const projectsGrid = document.getElementById('projects-grid') as HTMLElement;
+    const projectsGrid = document.getElementById('projects-grid');
     if (projectsGrid) {
       projectsGrid.innerHTML = projectsToShow.map(project => `
         <div class="project">
@@ -249,9 +242,9 @@
     }
   }
 
-  function displayPagination(): void {
+  function displayPagination() {
     const totalPages = Math.ceil(projects.length / projectsPerPage);
-    const pagination = document.getElementById('pagination') as HTMLElement;
+    const pagination = document.getElementById('pagination');
 
     if (pagination) {
       let paginationHTML = '<button id="prev-btn" disabled>Anterior</button>';
@@ -267,7 +260,7 @@
       // Add event listeners to pagination buttons
       document.querySelectorAll('.page-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const target = e.target as HTMLElement;
+          const target = e.target;
           if (target && target.dataset.page) {
             currentPage = parseInt(target.dataset.page);
             displayProjects(currentPage);
@@ -276,7 +269,7 @@
         });
       });
 
-      const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+      const prevBtn = document.getElementById('prev-btn');
       if (prevBtn) {
         prevBtn.addEventListener('click', () => {
           if (currentPage > 1) {
@@ -287,7 +280,7 @@
         });
       }
 
-      const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+      const nextBtn = document.getElementById('next-btn');
       if (nextBtn) {
         nextBtn.addEventListener('click', () => {
           if (currentPage < totalPages) {
@@ -302,8 +295,8 @@
     }
   }
 
-  function updatePaginationButtons(totalPages: number): void {
-    const pageBtns = document.querySelectorAll('.page-btn') as NodeListOf<HTMLButtonElement>;
+  function updatePaginationButtons(totalPages) {
+    const pageBtns = document.querySelectorAll('.page-btn');
     pageBtns.forEach(btn => {
       btn.classList.remove('active');
       if (btn.dataset.page && parseInt(btn.dataset.page) === currentPage) {
@@ -311,12 +304,12 @@
       }
     });
 
-    const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+    const prevBtn = document.getElementById('prev-btn');
     if (prevBtn) {
       prevBtn.disabled = currentPage === 1;
     }
 
-    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn');
     if (nextBtn) {
       nextBtn.disabled = currentPage === totalPages;
     }
