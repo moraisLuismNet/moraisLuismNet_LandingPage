@@ -1,0 +1,79 @@
+---
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Landing page con CV y proyectos" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<nav>
+			<ul>
+				<li><a href="/" class={currentPath === '/' ? 'disabled' : ''}>CV</a></li>
+				<li><a href="/proyectos" class={currentPath === '/proyectos' ? 'disabled' : ''}>Proyectos</a></li>
+				<li><a href="/contacto" class={currentPath === '/contacto' ? 'disabled' : ''}>Contacto</a></li>
+			</ul>
+		</nav>
+		<main>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		line-height: 1.6;
+	}
+	nav {
+		background-color: #333;
+		padding: 1rem;
+	}
+	nav ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+	}
+	nav li {
+		margin: 0 1rem;
+	}
+	nav a {
+		color: white;
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+		transition: background-color 0.3s;
+	}
+	nav a:hover:not(.disabled) {
+		background-color: #555;
+	}
+	nav a.disabled {
+		pointer-events: none;
+		opacity: 0.5;
+		cursor: default;
+	}
+	main {
+		padding: 2rem;
+		min-height: 60vh;
+	}
+	footer {
+		background-color: #f4f4f4;
+		text-align: center;
+		padding: 1rem;
+	}
+</style>
